@@ -2,16 +2,28 @@
 
 ## it is a deploy document of etoolkitsweb
 
-* 部署环境
+* 部署环境要求
 1. jdk1.6.0_20 64-Bit
 2. jboss-4.0.2
 3. os:Linux NA-eRating-37-191 2.6.32-696.6.3.el6.x86_64 #1 SMP Wed Jul 12 14:17:22 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+
+* 使用root用户创建jboss_gm用户
+
+```
+useradd -d /data/jboss_gm jboss_gm
+```
+
+* 将提供的jboss_gm.zip上传后解压
+```
+cd /data/jboss_gm
+unzip jboss_gm.zip -d /data/jboss_gm
+```
 
 * 配置jboss环境变量
 1. 修改 /etc/profile,添加如下内容
 
 ```
-JBOSS_HOME=/home/jboss_gm/jboss-4.0.2
+JBOSS_HOME=/data/jboss_gm/jboss-4.0.2
 
 export PATH=$PATH:$JBOSS_HOME
 
@@ -22,14 +34,14 @@ source /etc/profile
 
 echo $JBOSS_HOME
 
-输出：/home/jboss_gm/jboss-4.0.2 即表示jboss环境变量设置成功
+输出：/data/jboss_gm/jboss-4.0.2 即表示jboss环境变量设置成功
 ```
 
 
-* 在mysql中创建gmweb所需数据库和表，脚本见附件 init_gmweb.sql
+* 在mysql中创建gmweb所需数据库和表，脚本见附件 egamemaster.sql
 
 
-* 修改/home/jboss_gm/jboss-4.0.2/server/default/deploy/gmApplicationDs.xml
+* 修改/data/jboss_gm/jboss-4.0.2/server/default/deploy/gmApplicationDs.xml
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -54,7 +66,7 @@ echo $JBOSS_HOME
 ```
 
 
-* 修改/home/jboss_gm/jboss-4.0.2/server/default/deploy/mysql-ds.xml
+* 修改/data/jboss_gm/jboss-4.0.2/server/default/deploy/mysql-ds.xml
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -66,7 +78,7 @@ http://www.mysql.com/downloads/api-jdbc-stable.html
 <datasources>
  
   <local-tx-datasource>
-     <!-- gmweb数据库由上一步init_gmweb.sql初始化 -->
+     <!-- gmweb数据库由上一步1.egamemaster.sql初始化 -->
     <jndi-name>gmweb2_gm</jndi-name>
     <connection-url>jdbc:mysql://ip:port/egamemaster</connection-url>
     <driver-class>com.mysql.jdbc.Driver</driver-class>
@@ -96,3 +108,36 @@ http://www.mysql.com/downloads/api-jdbc-stable.html
 
 ```
 
+
+* 修改/data/jboss_gm/jboss-4.0.2/server/default/deploy/linekong-config.xml
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<linekong>
+<project name="egmweb2">
+        <property name="activityCodeFilePath">/data/jboss_gm/jboss-4.0.2/activitycode</property>
+        <property name="pwdPath">/data/jboss_gm/jboss-4.0.2/server/default/conf/gm/</property>
+	<property name="gameKey">198=linekonghy</property>
+	<property name="legalIP">79.110.87.85</property>
+	<!-- ownerType参数与数据库中的sys_game表中的OWNER_TYPE 字段需要一致 -->
+	<property name="ownerType">2</property>
+	<property name="iosPushPath960">/home/pustking.p12</property>
+	<property name="iosPushPwd960">lineking</property>
+	<!-- 聊天监控需要找相关同事确认后修改 -->
+        <property name="chatViewerUrl">http://gm.linekongsea.com:8089/eChatMonitor/</property>
+        <property name="chatViewerKey">linekongline</property>
+	<property name="phpkey">linekongkong</property>
+	<!-- 将 gm.linekongsea.com:8082 修改成你们部署后gm的访问地址 -->
+        <property name="unChargeUrl201">http://gm.linekongsea.com:8082/union_mid/unCharging.do</property>
+        <property name="unChargeKey201">08b14732254d1e2187062a33dc828de5</property>
+        <property name="unChargeUnionCode201">sszj_210</property>
+</project>
+</linekong>
+```
+
+** 启动程序
+
+```
+cd /data/jboss_gm/jboss-4.0.2/bin
+./run.sh &
+```

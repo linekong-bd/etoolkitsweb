@@ -135,7 +135,51 @@ http://www.mysql.com/downloads/api-jdbc-stable.html
 </linekong>
 ```
 
-** 启动程序
+* 修改 /data/jboss_gm/.bashrc 追加如下内容
+
+```
+export NLS_LANG=American_America.utf8
+export NLS_DATE_FORMAT="YYYY-MM-DD HH24:MI:SS"
+export LD_LIBRARY_PATH=$HOME/gmserver/lib/
+unset ORACLE_HOME
+export TNS_ADMIN=$PWD 
+```
+
+* 修改完成后执行 source /data/jboss_gm/.bashrc 使修改生效
+
+* 修改 /data/jboss_gm/gmserver/gmserver/erating_mysql_db.ini
+
+```
+#Server连接mysql数据库时，必须要配置的erating数据源,需跟erating开发同事确认
+#数据源信息 host，port，user，pwd，db
+#格式：xxx_游戏ID=xxx
+#密码格式为解密后的密码
+
+host_210=xxxx
+port_210=xxxx
+user_210=xxxx
+pwd_210=xxxx
+db_210=xxxx
+```
+
+* 修改 /data/jboss_gm/gmserver/gmserver/gmserver.ini中如下对应的内容，其余内容保持不变
+
+```
+game_id=xxx   //游戏申请的gameid                                       
+host_name=xxxx  //egamemaster数据库ip                                       
+db_port=xxxx    //egamemaster数据库port                                   
+user_name=xxxx  //egamemaster数据库用户名                                 
+password=xxxxx  //egamemaster数据库密码             
+```
+
+* 启动GMSvr
+
+```
+cd /data/jboss_gm/gmserver/gmserver/
+./GMSvr2.50 `pwd`
+```
+
+* 启动gmweb
 
 ```
 cd /data/jboss_gm/jboss-4.0.2/bin

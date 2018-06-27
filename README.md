@@ -41,7 +41,7 @@ echo $JBOSS_HOME
 * 在mysql中创建gmweb所需数据库和表，脚本见附件 egamemaster.sql
 
 
-* 修改/data/jboss_gm/jboss-4.0.2/server/default/deploy/gmApplicationDs.xml
+* 修改/data/jboss_gm/jboss-4.0.2/server/default/deploy/gmApplicationDs.xml 按照注释修改对应内容
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -66,7 +66,7 @@ echo $JBOSS_HOME
 ```
 
 
-* 修改/data/jboss_gm/jboss-4.0.2/server/default/deploy/mysql-ds.xml
+* 修改/data/jboss_gm/jboss-4.0.2/server/default/deploy/mysql-ds.xml 按照注释修改对应内容
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -109,7 +109,7 @@ http://www.mysql.com/downloads/api-jdbc-stable.html
 ```
 
 
-* 修改/data/jboss_gm/jboss-4.0.2/server/default/deploy/linekong-config.xml
+* 修改/data/jboss_gm/jboss-4.0.2/server/default/deploy/linekong-config.xml 按照注释修改对应内容
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>

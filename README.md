@@ -37,9 +37,19 @@ echo $JBOSS_HOME
 输出：/data/jboss_gm/jboss-4.0.2 即表示jboss环境变量设置成功
 ```
 
+* 修改 /data/jboss_gm/.bashrc 追加如下内容
+
+```
+export NLS_LANG=American_America.utf8
+export NLS_DATE_FORMAT="YYYY-MM-DD HH24:MI:SS"
+export LD_LIBRARY_PATH=$HOME/gmserver/lib/
+unset ORACLE_HOME
+export TNS_ADMIN=$PWD 
+```
+
+* 修改完成后执行 source /data/jboss_gm/.bashrc 使修改生效
 
 * 在mysql中创建gmweb所需数据库和表，脚本见附件 egamemaster.sql
-
 
 * 修改/data/jboss_gm/jboss-4.0.2/server/default/deploy/gmApplicationDs.xml 按照注释修改对应内容
 ```
@@ -78,12 +88,14 @@ http://www.mysql.com/downloads/api-jdbc-stable.html
 <datasources>
  
   <local-tx-datasource>
-     <!-- gmweb数据库由上一步1.egamemaster.sql初始化 -->
     <jndi-name>gmweb2_gm</jndi-name>
+     <!-- gmweb数据库由上一步1.egamemaster.sql初始化 请填写对应的ip和port-->
     <connection-url>jdbc:mysql://ip:port/egamemaster</connection-url>
     <driver-class>com.mysql.jdbc.Driver</driver-class>
+      <!-- 用户名-->
       <user-name>xxx</user-name>
-          <password>xxxx</password>
+      <!-- 密码 -->
+      <password>xxxx</password>
    <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter</exception-sorter-class-name>
     <metadata>
        <type-mapping>mySQL</type-mapping>
@@ -135,17 +147,6 @@ http://www.mysql.com/downloads/api-jdbc-stable.html
 </linekong>
 ```
 
-* 修改 /data/jboss_gm/.bashrc 追加如下内容
-
-```
-export NLS_LANG=American_America.utf8
-export NLS_DATE_FORMAT="YYYY-MM-DD HH24:MI:SS"
-export LD_LIBRARY_PATH=$HOME/gmserver/lib/
-unset ORACLE_HOME
-export TNS_ADMIN=$PWD 
-```
-
-* 修改完成后执行 source /data/jboss_gm/.bashrc 使修改生效
 
 * 修改 /data/jboss_gm/gmserver/gmserver/erating_mysql_db.ini
 
@@ -185,3 +186,5 @@ cd /data/jboss_gm/gmserver/gmserver/
 cd /data/jboss_gm/jboss-4.0.2/bin
 ./run.sh &
 ```
+
+* gm

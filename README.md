@@ -66,6 +66,11 @@ export TNS_ADMIN=$PWD
 	<bean id="dataSource_0" class="org.springframework.jndi.JndiObjectFactoryBean">       
     	<property name="jndiName" value="java:gmweb2_gm"/>       
 	</bean> 
+	
+	<bean id="dataSource_Oversea" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:gmweb2_oversea"/>
+        </bean>
+	
 	 <!-- 将xxx替换成游戏申请的gameid -->
 	<bean id="dataSource_xxx" class="org.springframework.jndi.JndiObjectFactoryBean"> 
     	<property name="jndiName" value="java:gmweb2_linekong_xxx"/> 
@@ -97,6 +102,18 @@ http://www.mysql.com/downloads/api-jdbc-stable.html
       <!-- 密码 -->
       <password>xxxx</password>
    <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter</exception-sorter-class-name>
+    <metadata>
+       <type-mapping>mySQL</type-mapping>
+    </metadata>
+  </local-tx-datasource>
+  
+  <local-tx-datasource>
+    <jndi-name>gmweb2_oversea</jndi-name>
+    <connection-url>jdbc:mysql://ip:port/oversea</connection-url>
+    <driver-class>com.mysql.jdbc.Driver</driver-class>
+    <user-name>xxx</user-name>
+    <password>xxx</password>
+    <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter</exception-sorter-class-name>
     <metadata>
        <type-mapping>mySQL</type-mapping>
     </metadata>

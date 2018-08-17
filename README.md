@@ -221,4 +221,9 @@ cd /data/jboss_gm/jboss-4.0.2/bin
 ./run.sh &
 ```
 
-* gm
+* 重启gmweb
+```
+注意使用jboss_gm用户操作
+将war包上传到 /data/jboss_gm/war/update 目录
+/data/jboss_gm/update_jboss_2.sh update 60f6d2173a43d9e5e1a31006a37cf9e0（war包的md5值）
+```

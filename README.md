@@ -24,7 +24,6 @@ unzip jboss_gm.zip -d /data/jboss_gm
 
 ```
 JBOSS_HOME=/data/jboss_gm/jboss-4.0.2
-
 export PATH=$PATH:$JBOSS_HOME
 
 ````
@@ -221,7 +220,7 @@ cd /data/jboss_gm/jboss-4.0.2/bin
 ./run.sh &
 ```
 
-* 重启gmweb
+* 更新gmweb应用程序
 ```
 注意使用jboss_gm用户操作
 将war包上传到 /data/jboss_gm/war/update 目录
